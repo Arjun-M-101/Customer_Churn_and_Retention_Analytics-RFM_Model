@@ -243,12 +243,21 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 6. Update data source: Home → Transform Data → Data Source Settings → change server to your local instance name
 
 ## Screenshots
-<img width="1320" height="740" alt="image" src="https://github.com/user-attachments/assets/a8cfde08-6370-4ca3-a675-58342c28dd62" />
-<img width="1319" height="741" alt="image" src="https://github.com/user-attachments/assets/2e2e398a-b6a6-4f59-95e8-b667e3461057" />
-<img width="1315" height="738" alt="image" src="https://github.com/user-attachments/assets/c6c15164-57c9-4034-817a-b755d78a4ed1" />
-<img width="1316" height="740" alt="image" src="https://github.com/user-attachments/assets/e93f03d5-c22f-4d2e-b1b2-f4eb9ea9d051" />
-<img width="1316" height="738" alt="image" src="https://github.com/user-attachments/assets/81510363-b94a-49ec-bc64-2827334547fb" />
-<img width="1315" height="741" alt="image" src="https://github.com/user-attachments/assets/0f4337e2-b31b-4fd7-b1da-27dd104a619f" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a8cfde08-6370-4ca3-a675-58342c28dd62" width="400"/>
+  <img src="https://github.com/user-attachments/assets/2e2e398a-b6a6-4f59-95e8-b667e3461057" width="400"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c6c15164-57c9-4034-817a-b755d78a4ed1" width="400"/>
+  <img src="https://github.com/user-attachments/assets/e93f03d5-c22f-4d2e-b1b2-f4eb9ea9d051" width="400"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/81510363-b94a-49ec-bc64-2827334547fb" width="400"/>
+  <img src="https://github.com/user-attachments/assets/0f4337e2-b31b-4fd7-b1da-27dd104a619f" width="400"/>
+</p>
+
 
 ## Loom Walkthrough
 
