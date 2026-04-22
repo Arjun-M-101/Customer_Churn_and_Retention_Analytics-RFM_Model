@@ -91,7 +91,7 @@ E-Commerce Customer Analytics Dashboard
 
 ### Phase 3 — Power BI: RFM Engine & Interactive Dashboard
 
-**File:** `dashboard/Ecomm_RFM_Analytics_Final.pbix`
+**File:** `Ecommerce_RFM_Analytics_v1.pbix`
 
 #### Data Model (Star Schema)
 
