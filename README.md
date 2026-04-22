@@ -239,7 +239,7 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 2. Rename file to `data.csv`, place in project folder
 3. Run `churn_rfm_eda.ipynb` in Jupyter — produces `rfm_data.csv`
 4. In SSMS: create `Ecommerce_Analytics` database, import `rfm_data.csv` as `dbo.Fact_RFM`, then run `rfm_schema_hardening.sql`
-5. Open `Ecomm_RFM_Analytics_Final.pbix` in Power BI Desktop
+5. Open `Ecommerce_RFM_Analytics_v1.pbix` in Power BI Desktop
 6. Update data source: Home → Transform Data → Data Source Settings → change server to your local instance name
 
 ## Loom Walkthrough
