@@ -1,4 +1,5 @@
 # Customer Churn & Retention Analytics — RFM Model
+<img width="1313" height="744" alt="image" src="https://github.com/user-attachments/assets/d57d30e9-ebea-4751-b718-41c8b661b8be" />
 
 ## Business Problem
 
