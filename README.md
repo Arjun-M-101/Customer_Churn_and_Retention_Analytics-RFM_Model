@@ -220,7 +220,6 @@ RETURN AtRiskRev * SELECTEDVALUE('Retention Rate'[Retention Rate])
 ## Repository Structure
 ```text
 Customer_Churn_and_Retention_Analytics-RFM_Model/
-├── README.md
 ├── README.md                          
 ├── notebooks/
 │   └── churn_rfm_eda.ipynb            ← Python EDA and RFM aggregation
