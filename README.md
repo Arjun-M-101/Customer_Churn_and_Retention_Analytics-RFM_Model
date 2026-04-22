@@ -226,9 +226,9 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 ├── sql/
 │   └── rfm_schema_hardening.sql       ← Database creation + schema hardening scripts
 ├── dashboard/
-│   └── Ecomm_RFM_Analytics_Final.pbix ← Power BI dashboard file
+│   └── Ecommerce_RFM_Analytics_v1.pbix ← Power BI dashboard file
 └── screenshots/
-└── dashboard_preview.png          ← Final dashboard screenshot
+    └── dashboard_preview.png          ← Final dashboard screenshot
 ```
 ## How to Reproduce
 
