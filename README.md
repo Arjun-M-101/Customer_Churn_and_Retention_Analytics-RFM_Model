@@ -13,6 +13,7 @@ with a live revenue recovery simulator.
 
 ## Pipeline Architecture
 
+```text
 Raw CSV — 541,909 rows (UK e-commerce transactions, Dec 2010 – Dec 2011)
 │
 ▼ Python (Pandas) — EDA, cleaning, RFM aggregation
@@ -23,6 +24,7 @@ dbo.Fact_RFM — 4,338 rows | CustomerID (PK, INT) | Recency | Frequency | Monet
 │
 ▼ Power BI Desktop — DAX scoring, relational model, interactive dashboard
 E-Commerce Customer Analytics Dashboard
+```
 
 ## Tools & Stack
 
