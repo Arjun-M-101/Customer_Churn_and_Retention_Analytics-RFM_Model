@@ -218,7 +218,7 @@ RETURN AtRiskRev * SELECTEDVALUE('Retention Rate'[Retention Rate])
 - **Flat trend line:** Power BI Date Hierarchy was collapsing all months. Resolved by disabling Auto Date/Time globally and plotting raw InvoiceDate.
 
 ## Repository Structure
-
+```text
 Customer_Churn_and_Retention_Analytics-RFM_Model/
 ├── README.md
 ├── README.md                          
@@ -230,7 +230,7 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 │   └── Ecomm_RFM_Analytics_Final.pbix ← Power BI dashboard file
 └── screenshots/
 └── dashboard_preview.png          ← Final dashboard screenshot
-
+```
 ## How to Reproduce
 
 1. Download dataset: [Kaggle — E-Commerce Data by carrie1](https://www.kaggle.com/datasets/carrie1/ecommerce-data)
