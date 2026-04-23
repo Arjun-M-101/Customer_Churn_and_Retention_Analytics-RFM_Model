@@ -270,5 +270,5 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 
 ## About
 
-Tools: Python (Pandas) | SQL Server | Power BI Desktop | Power Query | DAX
-Skills demonstrated: EDA & Cleaning | Data Warehouse | Power Query M | Conditional Formatting | Cross-filter interactivity | Tooltip pages
+**Tools:** Python (Pandas) | SQL Server | Power BI Desktop | Power Query | DAX  
+**Skills demonstrated:** EDA & Cleaning | Data Warehouse | Power Query M | Conditional Formatting | Cross-filter interactivity | Tooltip pages
