@@ -244,21 +244,26 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 
 ## Screenshots
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a8cfde08-6370-4ca3-a675-58342c28dd62" width="400"/>
-  <img src="https://github.com/user-attachments/assets/2e2e398a-b6a6-4f59-95e8-b667e3461057" width="400"/>
+  <img width="400" alt="image" src="https://github.com/user-attachments/assets/e2dfe43e-7002-4242-a153-8b8c91270b98" />
+  <img width="400" alt="image" src="https://github.com/user-attachments/assets/a96efcd5-7f16-45e6-9bbc-acb07c3acabe" />
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c6c15164-57c9-4034-817a-b755d78a4ed1" width="400"/>
-  <img src="https://github.com/user-attachments/assets/e93f03d5-c22f-4d2e-b1b2-f4eb9ea9d051" width="400"/>
+  <img width="400" alt="image" src="https://github.com/user-attachments/assets/cccdbb36-4023-4a85-9291-fd4c54724d3e" />
+  <img width="400" alt="image" src="https://github.com/user-attachments/assets/836a892b-afb1-4446-a529-9dfc497ded5b" />
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/81510363-b94a-49ec-bc64-2827334547fb" width="400"/>
-  <img src="https://github.com/user-attachments/assets/0f4337e2-b31b-4fd7-b1da-27dd104a619f" width="400"/>
+  <img width="400" alt="image" src="https://github.com/user-attachments/assets/5ec9fe37-9975-499a-83ca-6d226411c65f" />
+  <img width="400" alt="image" src="https://github.com/user-attachments/assets/97ff48a4-2b81-4ef6-95c0-2c7ea3b5d19a" />
 </p>
 
 
 ## Loom Walkthrough
 
 [WILL BE UPDATED SOON...]
+
+## About
+
+Tools: Python (Pandas) | SQL Server | Power BI Desktop | Power Query | DAX
+Skills demonstrated: EDA & Cleaning | Data Warehouse | Power Query M | Conditional Formatting | Cross-filter interactivity | Tooltip pages
