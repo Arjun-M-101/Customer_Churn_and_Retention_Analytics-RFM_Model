@@ -231,7 +231,12 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 ├── dashboard/
 │   └── Ecommerce_RFM_Analytics_v1.pbix ← Power BI dashboard file
 └── screenshots/
-    └── dashboard_preview.png          ← Final dashboard screenshot
+    └── dashboard_preview.jpg          ← Final dashboard screenshot
+    └── champions.jpg
+    └── loyal customers.jpg
+    └── hibernating.jpg
+    └── needs attention.jpg
+    └── at risk.jpg
 ```
 ## How to Reproduce
 
