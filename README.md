@@ -1,5 +1,7 @@
 # Customer Churn & Retention Analytics — RFM Model
-<img width="1157" height="655" alt="image" src="https://github.com/user-attachments/assets/b6553344-4638-4b49-b7f5-9fae8654da33" />
+
+<img width="1157" height="655" alt="Dashboard Preview" 
+src="https://github.com/user-attachments/assets/b6553344-4638-4b49-b7f5-9fae8654da33" />
 
 ## Business Problem
 
@@ -39,6 +41,8 @@ E-Commerce Customer Analytics Dashboard
 - **Source:** Kaggle — [E-Commerce Data by carrie1](https://www.kaggle.com/datasets/carrie1/ecommerce-data) (UCI Online Retail Dataset)
 - **Raw size:** 541,909 rows — individual product-level transactions
 - **After cleaning:** 397,884 rows | 4,338 unique customers
+
+---
 
 ## What I Built
 
@@ -91,14 +95,14 @@ E-Commerce Customer Analytics Dashboard
 
 ### Phase 3 — Power BI: RFM Engine & Interactive Dashboard
 
-**File:** `Ecommerce_RFM_Analytics_v1.pbix`
+**File:** `dashboard/Ecommerce_RFM_Analytics_v1.pbix`
 
 #### Data Model (Star Schema)
 
 - **Fact_RFM** loaded from SQL Server (Import mode)
 - **data** table loaded from raw `data.csv` — provides InvoiceDate for time-series
 - **Relationship:** `data[CustomerID]` → `Fact_RFM[CustomerID]` (Many-to-One)
-- **Cross-filter direction:** Both — enables full slicer cross-filtering across tables
+- **Cross-filter direction:** Both — enables full slicer cross-filtering across all visuals
 - **Disabled Auto Date/Time** (File → Options → Current File → Data Load) — resolved DateTime parsing errors in Power Query
 - **Power Query:** Removed error rows from InvoiceDate column, changed type to Date/Time using English (United Kingdom) locale
 
@@ -185,21 +189,27 @@ RETURN AtRiskRev * SELECTEDVALUE('Retention Rate'[Retention Rate])
 
 | Visual | Fields | Purpose |
 |--------|--------|---------|
-| KPI Card | Total Revenue | Headline revenue at a glance |
-| KPI Card | Customer Count | Total segmented customers |
-| Treemap | Category = Customer_Segment, Values = Count of CustomerID | Who are my customers? |
-| Bar Chart | Y = Customer_Segment, X = Total Revenue | Which segments drive revenue? |
+| KPI Card | Total Revenue | Headline revenue at a glance — 8.91M total across 4,338 customers |
+| KPI Card | Customer Count | Total segmented customers — 4,338 unique |
+| Treemap | Category = Customer_Segment, Values = Count of CustomerID | Who are my customers and how large is each segment? |
+| Bar Chart | Y = Customer_Segment, X = Total Revenue | Which segments drive the most revenue? |
+| Scatter Chart | X = Recency, Y = Frequency, Size = Monetary, Legend = Customer_Segment | All three RFM dimensions in one visual — reveals behavioural patterns per segment |
 | Line Chart | X = InvoiceDate, Y = Sum of Monetary | How is revenue trending over time? |
-| Slicer | Customer_Segment | Interactive cross-filter |
+| Slicer | Customer_Segment | Interactive cross-filter — clicking any segment updates all visuals simultaneously |
 | Slider + Card | Retention Rate + Projected Recovery | Revenue recovery simulator |
+
+---
 
 ## Key Findings
 
-- **4,338** unique customers analysed from Dec 2010 – Dec 2011
-- **Champions** generate the majority of total revenue (~$8.9M across all segments) despite being a small % of customers — classic Pareto 80/20 pattern
-- **Hibernating** segment has the largest customer count — largest churn risk and win-back opportunity
-- At-Risk Revenue card (locked via `ALL()`) shows revenue at stake regardless of slicer state
-- Cross-filter interactivity: clicking any segment in Treemap or Bar Chart updates all other visuals simultaneously
+- **4,338** unique customers analysed across Dec 2010 – Dec 2011
+- **Champions** generate ~£5.8M of the £8.9M total revenue despite being a small % of the customer base — Pareto 80/20 pattern confirmed
+- **Hibernating** segment has the largest customer count — the highest churn risk and largest win-back opportunity
+- **Scatter chart insight:** Champions cluster top-left (low recency, high frequency) — they buy often and recently. Hibernating customers spread bottom-right (high recency days, low frequency) — they have stopped returning.
+- At-Risk Revenue card (locked via `ALL()`) shows revenue at stake regardless of active slicer state
+- Cross-filter interactivity: clicking any segment across Treemap, Bar Chart, or Scatter Chart updates all other visuals simultaneously
+
+---
 
 ## Data Quality Decisions
 
@@ -212,6 +222,8 @@ RETURN AtRiskRev * SELECTEDVALUE('Retention Rate'[Retention Rate])
 | DateTime parsing errors (234,047 rows) | Removed via Power Query + disabled Auto Date/Time | Unparseable rows had no valid date — cannot be plotted on time axis |
 | Blank CustomerID in data table | Filtered from visuals (Filters pane) | Guest checkout rows in raw data have no RFM segment — excluded from segmentation visuals |
 
+---
+
 ## Technical Challenges Solved
 
 - **Python-to-SQL type mismatch:** Pandas GroupBy outputs CustomerID as float index. Resolved by explicitly reconstructing a clean DataFrame with `.astype(int)` and `index=False` export.
@@ -219,11 +231,15 @@ RETURN AtRiskRev * SELECTEDVALUE('Retention Rate'[Retention Rate])
 - **DateTime locale error:** UK date format (DD/MM/YYYY) misread by Power BI. Resolved using Power Query → Change Type → Using Locale (English UK).
 - **Disconnected parameter table:** Retention Rate table had no relationship line to Fact_RFM. Resolved by using `SELECTEDVALUE('Retention Rate'[Retention Rate])` inside the DAX measure — a DAX bridge rather than a physical relationship.
 - **Flat trend line:** Power BI Date Hierarchy was collapsing all months. Resolved by disabling Auto Date/Time globally and plotting raw InvoiceDate.
+- **Scatter chart visual type conflict:** Power BI blocked CustomerID in Values field alongside Legend due to DataViewMappingError_ScatterGroupingValues. Resolved by removing the Values field — Fact_RFM grain is already one row per customer, so X/Y/Legend/Size fields alone produce correct per-customer dot plotting.
+
+---
 
 ## Repository Structure
+
 ```text
 Customer_Churn_and_Retention_Analytics-RFM_Model/
-├── README.md                          
+├── README.md
 ├── notebooks/
 │   └── churn_rfm_eda.ipynb            ← Python EDA and RFM aggregation
 ├── sql/
@@ -231,13 +247,16 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 ├── dashboard/
 │   └── Ecommerce_RFM_Analytics_v1.pbix ← Power BI dashboard file
 └── screenshots/
-    └── dashboard_preview.jpg          ← Final dashboard screenshot
-    └── champions.jpg
-    └── loyal customers.jpg
-    └── hibernating.jpg
-    └── needs attention.jpg
-    └── at risk.jpg
+    ├── dashboard_preview.jpg           ← Full dashboard (unfiltered)
+    ├── champions.jpg                   ← Champions segment cross-filter
+    ├── loyal_customers.jpg             ← Loyal Customers cross-filter
+    ├── hibernating.jpg                 ← Hibernating cross-filter
+    ├── needs_attention.jpg             ← Needs Attention cross-filter
+    └── at_risk.jpg                     ← At Risk cross-filter
 ```
+
+---
+
 ## How to Reproduce
 
 1. Download dataset: [Kaggle — E-Commerce Data by carrie1](https://www.kaggle.com/datasets/carrie1/ecommerce-data)
@@ -247,7 +266,10 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 5. Open `Ecommerce_RFM_Analytics_v1.pbix` in Power BI Desktop
 6. Update data source: Home → Transform Data → Data Source Settings → change server to your local instance name
 
+---
+
 ## Screenshots
+
 <p align="center">
   <img width="400" alt="image" src="https://github.com/user-attachments/assets/e2dfe43e-7002-4242-a153-8b8c91270b98" />
   <img width="400" alt="image" src="https://github.com/user-attachments/assets/a96efcd5-7f16-45e6-9bbc-acb07c3acabe" />
@@ -263,12 +285,16 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
   <img width="400" alt="image" src="https://github.com/user-attachments/assets/97ff48a4-2b81-4ef6-95c0-2c7ea3b5d19a" />
 </p>
 
+---
 
 ## Loom Walkthrough
 
 [WILL BE UPDATED SOON...]
 
+---
+
 ## About
 
-**Tools:** Python (Pandas) | SQL Server | Power BI Desktop | Power Query | DAX  
-**Skills demonstrated:** EDA & Cleaning | Data Warehouse | Power Query M | Conditional Formatting | Cross-filter interactivity | Tooltip pages
+**Tools:** Python (Pandas) | SQL Server | Power BI Desktop | Power Query | DAX
+
+**Skills demonstrated:** EDA & Data Cleaning | Data Warehouse Design | Schema Hardening | RFM Modelling | RANKX Quintile Scoring | DAX Calculated Columns & Measures | What-If Parameter | Cross-filter Interactivity | Scatter Chart Behavioural Analysis | Tooltip Pages
