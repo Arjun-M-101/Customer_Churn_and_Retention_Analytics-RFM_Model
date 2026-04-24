@@ -1,4 +1,4 @@
-# Customer Churn & Retention Analytics — RFM Model
+# Customer Churn & Retention Analytics - RFM Model
 
 <img width="1157" height="655" alt="Dashboard Preview" 
 src="https://github.com/user-attachments/assets/b6553344-4638-4b49-b7f5-9fae8654da33" />
@@ -287,11 +287,12 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 
 ---
 
+<!--
 ## Loom Walkthrough
 
 [WILL BE UPDATED SOON...]
-
 ---
+-->
 
 ## About
 
