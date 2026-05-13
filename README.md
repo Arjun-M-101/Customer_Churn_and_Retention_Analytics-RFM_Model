@@ -1,6 +1,6 @@
-# Customer Churn & Retention Analytics - RFM Model
+# Customer Churn & Retention Analytics — RFM Model
 
-<img width="1157" height="655" alt="Dashboard Preview" 
+<img width="1157" height="655" alt="Dashboard Preview"
 src="https://github.com/user-attachments/assets/b6553344-4638-4b49-b7f5-9fae8654da33" />
 
 ## Business Problem
@@ -140,24 +140,42 @@ IF(M_Rank <= Total * 0.2, 5,
    IF(M_Rank <= Total * 0.4, 4,
       IF(M_Rank <= Total * 0.6, 3,
          IF(M_Rank <= Total * 0.8, 2, 1))))
-
--- 3-digit composite RFM code (e.g. 555 = top quintile on all three)
-RFM_Cell = 'Fact_RFM'[R_Score] * 100 + 'Fact_RFM'[F_Score] * 10 + 'Fact_RFM'[M_Score]
-
--- Customer segment classification based on composite score
-Customer_Segment =
-IF('Fact_RFM'[RFM_Cell] >= 444, "Champions",
-   IF('Fact_RFM'[RFM_Cell] >= 333, "Loyal Customers",
-      IF('Fact_RFM'[RFM_Cell] >= 222, "At Risk",
-         "Hibernating")))
 ```
+
+#### Customer Segmentation Logic
+
+Segments are assigned using `SWITCH(TRUE())` against R_Score and F_Score thresholds.
+This produces **6 behavioural segments** based on the combination of recency and frequency:
+
+```dax
+Customer_Segment =
+SWITCH(TRUE(),
+    'Fact_RFM'[R_Score] >= 4 && 'Fact_RFM'[F_Score] >= 4, "Champions",
+    'Fact_RFM'[R_Score] >= 3 && 'Fact_RFM'[F_Score] >= 3, "Loyal Customers",
+    'Fact_RFM'[R_Score] >= 3 && 'Fact_RFM'[F_Score] <= 2, "Potential Loyalists",
+    'Fact_RFM'[R_Score] <= 2 && 'Fact_RFM'[F_Score] >= 4, "At Risk",
+    'Fact_RFM'[R_Score] <= 2 && 'Fact_RFM'[F_Score] <= 2, "Hibernating",
+    "Needs Attention"
+)
+```
+
+**Segment definitions:**
+
+| Segment | R_Score | F_Score | Business Meaning |
+|---------|---------|---------|-----------------|
+| Champions | ≥ 4 | ≥ 4 | Bought recently and often — your best customers |
+| Loyal Customers | ≥ 3 | ≥ 3 | Buy regularly, still engaged |
+| Potential Loyalists | ≥ 3 | ≤ 2 | Recent buyers but infrequent — nurture them |
+| At Risk | ≤ 2 | ≥ 4 | Used to buy frequently but have gone quiet — highest-value win-back target |
+| Hibernating | ≤ 2 | ≤ 2 | Low recency and low frequency — least engaged |
+| Needs Attention | all others | all others | Middle-ground customers not fitting other patterns |
 
 #### DAX Measures (dynamic — respond to all filters and slicers)
 
 ```dax
 Total Revenue = SUM('Fact_RFM'[Monetary])
 
-Customer Count = DISTINCTCOUNT('Fact_RFM'[CustomerID])
+Customer_Count = DISTINCTCOUNT(Fact_RFM[CustomerID])
 
 -- Isolated to At-Risk segment regardless of active filters (ALL removes context)
 At Risk Revenue =
@@ -175,13 +193,17 @@ VAR AtRiskRev = CALCULATE(
     'Fact_RFM'[Customer_Segment] = "At Risk"
 )
 RETURN AtRiskRev * SELECTEDVALUE('Retention Rate'[Retention Rate])
+
+-- What-If parameter table (0% to 100% in 5% increments)
+Retention Rate = GENERATESERIES(0, 1, 0.05)
+Retention Rate Value = SELECTEDVALUE('Retention Rate'[Retention Rate], 0.1)
 ```
 
 #### What-If Revenue Recovery Simulator
 
 - **Retention Rate parameter:** Numeric range 0 → 1, increment 0.05
 - **Projected Recovery card:** Updates in real time as slider moves
-- **Business use:** A marketing manager sets the slider to 0.10 (10% retention)
+- **Business use:** A marketing manager sets the slider to 0.25 (25% retention)
   and instantly sees the projected revenue recovery from At-Risk customers —
   enabling data-driven budget decisions for retention campaigns
 
@@ -189,11 +211,11 @@ RETURN AtRiskRev * SELECTEDVALUE('Retention Rate'[Retention Rate])
 
 | Visual | Fields | Purpose |
 |--------|--------|---------|
-| KPI Card | Total Revenue | Headline revenue at a glance — 8.91M total across 4,338 customers |
+| KPI Card | Total Revenue | Headline revenue at a glance — £8.91M total |
 | KPI Card | Customer Count | Total segmented customers — 4,338 unique |
 | Treemap | Category = Customer_Segment, Values = Count of CustomerID | Who are my customers and how large is each segment? |
-| Bar Chart | Y = Customer_Segment, X = Total Revenue | Which segments drive the most revenue? |
-| Scatter Chart | X = Recency, Y = Frequency, Size = Monetary, Legend = Customer_Segment | All three RFM dimensions in one visual — reveals behavioural patterns per segment |
+| Bar Chart | Y = Customer_Segment, X = Sum of Monetary | Which segments drive the most revenue? |
+| Scatter Chart | X = Recency, Y = Frequency, Size = Monetary, Legend = Customer_Segment | All three RFM dimensions in one visual — reveals behavioural clusters per segment |
 | Line Chart | X = InvoiceDate, Y = Sum of Monetary | How is revenue trending over time? |
 | Slicer | Customer_Segment | Interactive cross-filter — clicking any segment updates all visuals simultaneously |
 | Slider + Card | Retention Rate + Projected Recovery | Revenue recovery simulator |
@@ -203,11 +225,11 @@ RETURN AtRiskRev * SELECTEDVALUE('Retention Rate'[Retention Rate])
 ## Key Findings
 
 - **4,338** unique customers analysed across Dec 2010 – Dec 2011
-- **Champions** generate ~£5.8M of the £8.9M total revenue despite being a small % of the customer base — Pareto 80/20 pattern confirmed
+- **Champions** generate ~£5.8M of the £8.9M total revenue despite being a small % of customers — Pareto 80/20 pattern confirmed
 - **Hibernating** segment has the largest customer count — the highest churn risk and largest win-back opportunity
-- **Scatter chart insight:** Champions cluster top-left (low recency, high frequency) — they buy often and recently. Hibernating customers spread bottom-right (high recency days, low frequency) — they have stopped returning.
+- **At Risk** customers are the most valuable retention target: high historical frequency, now inactive — they've proven willingness to spend
+- **Scatter chart insight:** Champions cluster top-left (low recency days, high frequency). Hibernating customers spread bottom-right (high recency days, low frequency)
 - At-Risk Revenue card (locked via `ALL()`) shows revenue at stake regardless of active slicer state
-- Cross-filter interactivity: clicking any segment across Treemap, Bar Chart, or Scatter Chart updates all other visuals simultaneously
 
 ---
 
@@ -287,15 +309,8 @@ Customer_Churn_and_Retention_Analytics-RFM_Model/
 
 ---
 
-<!--
-## Loom Walkthrough
-
-[WILL BE UPDATED SOON...]
----
--->
-
 ## About
 
 **Tools:** Python (Pandas) | SQL Server | Power BI Desktop | Power Query | DAX
 
-**Skills demonstrated:** EDA & Data Cleaning | Data Warehouse Design | Schema Hardening | RFM Modelling | RANKX Quintile Scoring | DAX Calculated Columns & Measures | What-If Parameter | Cross-filter Interactivity | Scatter Chart Behavioural Analysis | Tooltip Pages
+**Skills demonstrated:** EDA & Data Cleaning | Data Warehouse Design | Schema Hardening | RFM Modelling | RANKX Quintile Scoring | DAX Calculated Columns & Measures | SWITCH Segmentation | What-If Parameter | Cross-filter Interactivity | Scatter Chart Behavioural Analysis
