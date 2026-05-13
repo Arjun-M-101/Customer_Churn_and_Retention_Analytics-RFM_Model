@@ -215,9 +215,8 @@ Retention Rate Value = SELECTEDVALUE('Retention Rate'[Retention Rate], 0.1)
 | KPI Card | Customer Count | Total segmented customers — 4,338 unique |
 | Treemap | Category = Customer_Segment, Values = Count of CustomerID | Who are my customers and how large is each segment? |
 | Bar Chart | Y = Customer_Segment, X = Sum of Monetary | Which segments drive the most revenue? |
-| Scatter Chart | X = Recency, Y = Frequency, Size = Monetary, Legend = Customer_Segment | All three RFM dimensions in one visual — reveals behavioural clusters per segment |
-| Line Chart | X = InvoiceDate, Y = Sum of Monetary | How is revenue trending over time? |
-| Slicer | Customer_Segment | Interactive cross-filter — clicking any segment updates all visuals simultaneously |
+| Scatter Chart | X = Recency, Y = Frequency, Size = Customer count per cluster, Legend = Customer_Segment | All three RFM dimensions in one visual — reveals behavioural clusters per segment |
+| Line Chart | X = InvoiceDate, Y = Transaction activity count | How is purchase activity trending over time? |
 | Slider + Card | Retention Rate + Projected Recovery | Revenue recovery simulator |
 
 ---
