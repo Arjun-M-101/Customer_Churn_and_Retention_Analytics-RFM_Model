@@ -202,7 +202,7 @@ Retention Rate Value = SELECTEDVALUE('Retention Rate'[Retention Rate], 0.1)
 #### What-If Revenue Recovery Simulator
 
 - **Retention Rate parameter:** Numeric range 0 → 1, increment 0.05
-- **Projected Recovery card:** Updates in real time as slider moves
+- **Projected Recovery bar chart:** Updates in real time as slider moves
 - **Business use:** A marketing manager sets the slider to 0.25 (25% retention)
   and instantly sees the projected revenue recovery from At-Risk customers —
   enabling data-driven budget decisions for retention campaigns
@@ -212,12 +212,12 @@ Retention Rate Value = SELECTEDVALUE('Retention Rate'[Retention Rate], 0.1)
 | Visual | Fields | Purpose |
 |--------|--------|---------|
 | KPI Card | Total Revenue | Headline revenue at a glance — £8.91M total |
-| KPI Card | Customer Count | Total segmented customers — 4,338 unique |
+| KPI Card | Total Customers | Total segmented customers — 4,338 unique |
 | Treemap | Category = Customer_Segment, Values = Count of CustomerID | Who are my customers and how large is each segment? |
 | Bar Chart | Y = Customer_Segment, X = Sum of Monetary | Which segments drive the most revenue? |
-| Scatter Chart | X = Recency, Y = Frequency, Size = Customer count per cluster, Legend = Customer_Segment | All three RFM dimensions in one visual — reveals behavioural clusters per segment |
-| Line Chart | X = InvoiceDate, Y = Transaction activity count | How is purchase activity trending over time? |
-| Slider + Card | Retention Rate + Projected Recovery | Revenue recovery simulator |
+| Scatter Chart | X = Recency, Y = Frequency, Size = Sum of Monetary, Legend = Customer_Segment | All three RFM dimensions in one visual — reveals behavioural clusters per segment |
+| Line Chart | X = InvoiceDate, Y = Sum of Monetary (Daily Sales) | How is purchase activity trending over time? |
+| Slider + Bar Chart | Retention Rate + Projected Recovery | Revenue recovery simulator — shows projected revenue recovery at selected retention rate |
 
 ---
 
